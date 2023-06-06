@@ -3,3 +3,12 @@ body {
   width: 100%;
   height: 100%;
 }
+
+@font-face {
+  font-family: Pop;
+  src: url(./Font/Poppins-Regular.ttf);
+}
+
+.alive {
+  background: green;
+}
