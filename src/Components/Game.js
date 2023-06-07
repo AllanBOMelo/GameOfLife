@@ -2,44 +2,37 @@ import styles from './Game.module.css'
 
 function Game () {
 
-    // Constantes para definir o tamanho da malha
     const width = 320;
     const height = 320;
     const cellSize = 20;
     const rows = height/cellSize;
     const colums = width/cellSize;
-    let isActive = false;   // Controlador se estiver ativo
-    let counter = 0;   // Contador de gerações que se passaram
-
-    //Loop no intervalo de 100ms para executar a função sempre que o controlador estiver true
+    let isActive = false;  
+    let counter = 0; 
     
-        setInterval(()=>{
-            if (isActive === true) {
-                startGame();
-            };
-        },100);
+    setInterval(()=>{
+        if (isActive === true) {
+            startGame();
+        };
+    },100);
     
 
-    let grid = []; //Array que irá se tornar uma matriz representando a malha
+    let grid = [];
 
     for (let i = 0; i < rows; i++) {
         let row = [];
         for (let j = 0; j < colums; j++) {
-            row.push(Math.floor(Math.random() * 2)); //Função para gerar uma matriz aleatoria de 0 e 1, que representam o estado da celula
+            row.push(Math.floor(Math.random() * 2));
         };
         grid.push(row);  
     };
-    // Acima atraves da função 'for' Foram criadas linhas a partir do valor da constante
-    // E na segunda função 'for' se criam os objetos representando as colunas de acordo com a constante
-    // Por fim, é feito um push na grid, o que a transforma em matriz, sendo possivel acessar cada elemento atraves dos indices
-
-    function eventClick (e) { // Quando ativa, o elemento clickado se estiver com valor 0, se torna vivo com valor 1
+    
+    function eventClick (e) { 
         let cellid = e.target.id
         let cell = document.getElementById(cellid)
 
         let x = cellid.split(',')[0]
         let y = cellid.split(',')[1]
-        // X e Y se referem ao indice da celula criada, que está contido no ID do elemento
 
         if (cell.classList.value === 'alive') {
             cell.classList.value = ''
@@ -114,9 +107,6 @@ function Game () {
                         }
                     }
 
-
-                    /* Qualquer espaço vazio com exatamente três vizinhos vivos se torna uma célula viva. */        
-
                     if ( grid[x][y] === 0 && neighbors === 3) {
                     
                         cell.position = x + ',' + y
@@ -124,8 +114,6 @@ function Game () {
 
                         changes.push(cell)
                     }
-                    
-                    /* Qualquer célula viva com menos de dois vizinhos vivos morre de solidão. */
 
                     if ( grid[x][y] === 1 && neighbors < 2) {
                     
@@ -134,8 +122,6 @@ function Game () {
 
                         changes.push(cell)
                     }
-
-                    /* Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação. */
 
                     if ( grid[x][y] === 1 && neighbors > 3) {
                     
@@ -148,7 +134,6 @@ function Game () {
                 }
             }
 
-            //Para cada mudança salva acima, será feita a respectiva aplicação na matriz
             changes.forEach(cell => {
 
                 if (cell.state === 'alive') {
@@ -166,7 +151,7 @@ function Game () {
             
             counter += 1
             document.getElementById('counter').innerHTML = counter.toString();
-    } // Function Fim
+    } 
 
     return (
         <div>
