@@ -7,7 +7,7 @@ function Game () {
     const height = 320;
     const cellSize = 20;
     const rows = height/cellSize;
-    const colums = width/cellSize;
+    const columns = width/cellSize;
     let isActive = false;   // Controlador se estiver ativo
     let counter = 0;   // Contador de gerações que se passaram
 
@@ -24,7 +24,7 @@ function Game () {
 
     for (let i = 0; i < rows; i++) {
         let row = [];
-        for (let j = 0; j < colums; j++) {
+        for (let j = 0; j < columns; j++) {
             row.push(Math.floor(Math.random() * 2)); //Função para gerar uma matriz aleatoria de 0 e 1, que representam o estado da celula
         };
         grid.push(row);  
@@ -54,7 +54,7 @@ function Game () {
             let changes = [];
 
             for (let x = 0; x < rows; x++) {
-                for (let y = 0; y < colums; y++) {
+                for (let y = 0; y < columns; y++) {
                     let cell = {};
                     let neighbors = 0;
 
@@ -66,21 +66,21 @@ function Game () {
                     }
 
                     /* NorthEast */
-                    if ( x > 0 && y < colums -1) {
+                    if ( x > 0 && y < columns -1) {
                         if (grid[x-1][y+1] === 1) {
                             neighbors += 1
                         }
                     }
 
                     /* East */
-                    if (y < colums -1) {
+                    if (y < columns -1) {
                         if (grid[x][y+1] === 1) {
                             neighbors += 1
                         }
                     }
 
                     /* SouthEast */
-                    if ( x < rows -1 && y < colums -1) {
+                    if ( x < rows -1 && y < columns -1) {
                         if (grid[x+1][y+1] === 1) {
                             neighbors += 1
                         }
@@ -179,7 +179,7 @@ function Game () {
             <div className={styles.container} style={{width: width, height: height, backgroundSize: `${cellSize}px ${cellSize}px` }} >
                 {
                 grid.map((rows, x) => 
-                    rows.map((colums, y) => (
+                    rows.map((columns, y) => (
                         <div id={`${x},${y}`} className={grid[x][y] ? 'alive' : ''} key={x + y} style={{width: cellSize, height: cellSize}} onClick={eventClick}></div>
                     ))
                 )
@@ -201,7 +201,7 @@ function Game () {
 
                 <button id='clear' className={styles.clearButton} onClick={() => {
                     for (let i = 0; i < rows; i++) {
-                        for (let j= 0; j< colums; j++) {
+                        for (let j= 0; j< columns; j++) {
                             grid[i][j] = 0
                             document.getElementById(i + ',' + j).classList.value = ''
                         }
